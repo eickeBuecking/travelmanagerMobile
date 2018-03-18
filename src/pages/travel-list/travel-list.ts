@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BasePage } from '../base/base.page';
 import { TravelListItem } from '../../models/travellistitem';
 import { TravelsService } from '../../services/travels.service';
-/**
+import { TravelDetailPage } from '../../pages/travel-detail/travel-detail';
+import { AuthenticationService } from '../../services/authentication.service';
+/** 
  * Generated class for the TravelListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
@@ -17,10 +19,11 @@ import { TravelsService } from '../../services/travels.service';
 })
 export class TravelListPage extends BasePage {
   travels: TravelListItem[];
-  error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public travelsService: TravelsService) {
-      super(navCtrl);
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public travelsService: TravelsService,
+              public authenticationService: AuthenticationService) {
+      super(navCtrl, authenticationService);
   }
 
   ionViewDidLoad() {
@@ -35,8 +38,10 @@ export class TravelListPage extends BasePage {
     );
   }
 
-  handleError(error:string) :void {
-    console.log(error);
-    this.error = error;
+  public itemSelected(item: TravelListItem) {
+    console.log("Clicked on : " + item.id);
+    this.navCtrl.push(TravelDetailPage, { id: item.id });
   }
+
+
 }

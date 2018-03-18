@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BasePage } from '../base/base.page';
+import { AuthenticationService } from '../../services/authentication.service';
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
@@ -10,8 +11,9 @@ export class ListPage extends BasePage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    super(navCtrl);
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public authenticationService:AuthenticationService) {
+    super(navCtrl, authenticationService);
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 

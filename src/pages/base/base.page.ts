@@ -2,16 +2,20 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginComponent } from '../login/login.component';
 
+import { AuthenticationService } from '../../services/authentication.service';
+
 @Component({
   template: ""
 })
 export class BasePage {
+  error: string;
  constructor(
-   public navCtrl: NavController
+   public navCtrl: NavController,
+   public authenticationService: AuthenticationService
   ){}
 
   ionViewCanEnter(): boolean{
-    if (localStorage.getItem('currentUser')) {
+    if (this.authenticationService.loggedIn()) {
            // logged in so return true
            return true;
        }
@@ -21,5 +25,10 @@ export class BasePage {
           this.navCtrl.setRoot(LoginComponent);
         }, 0);
        return false;
+    }
+
+    handleError(error:string) :void {
+      console.log(error);
+      this.error = error;
     }
 }

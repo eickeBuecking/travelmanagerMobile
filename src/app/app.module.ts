@@ -8,7 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TravelListPage } from '../pages/travel-list/travel-list';
 import { LoginComponent } from '../pages/login/login.component';
-
+import { TravelDetailPage } from '../pages/travel-detail/travel-detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,6 +25,7 @@ import { HttpClientModule} from '@angular/common/http';
     HomePage,
     ListPage,
     TravelListPage,
+    TravelDetailPage,
     LoginComponent
   ],
   imports: [
@@ -39,6 +40,7 @@ import { HttpClientModule} from '@angular/common/http';
     HomePage,
     ListPage,
     TravelListPage,
+    TravelDetailPage,
     LoginComponent
   ],
   providers: [

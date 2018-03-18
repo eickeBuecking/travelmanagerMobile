@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators';
+import { catchError  } from 'rxjs/operators';
 import { User } from '../models/user';
 
 const basic_auth_header = "Basic ZWlja2U6Z2VoZWlt";
@@ -36,7 +36,7 @@ export class AuthenticationService {
                     user.username = "Eicke";
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-
+                    localStorage.setItem('token', this.token);
                     // return true to indicate successful login
                     return user;
                 } else {
@@ -72,5 +72,13 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+    }
+
+    public loggedIn() : boolean {
+      if (!this.token) {
+        this.token = localStorage.getItem('token');
+      }
+      return (this.token != undefined);
     }
 }
