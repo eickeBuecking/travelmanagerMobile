@@ -17,6 +17,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { TravelsService } from '../services/travels.service';
 import { HttpClientModule} from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../reducers/reducers';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

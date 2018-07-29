@@ -29,9 +29,19 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid >
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder="Search-Text"  class="" text-wrap no-lines>
+          {{terms | async}}
+        </ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
   <ion-list *ngIf="!error">
-    <ion-item ion-item *ngFor="let travel of travels" (click)="itemSelected(travel)">
+    <ion-item ion-item *ngFor="let travel of travels | async" (click)="itemSelected(travel)">
       <h2>{{travel.name}}</h2>
       <h3>{{travel.description}}</h3>
       <p>Start: {{travel.startDate}}</p>

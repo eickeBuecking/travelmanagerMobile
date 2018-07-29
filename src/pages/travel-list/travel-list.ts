@@ -6,6 +6,12 @@ import { TravelsService } from '../../services/travels.service';
 import { TravelDetailPage } from '../../pages/travel-detail/travel-detail';
 import { NewTravelPage } from '../../pages/new-travel/new-travel';
 import { AuthenticationService } from '../../services/authentication.service';
+import {Observable} from 'rxjs/Observable';
+
+import { Store } from '@ngrx/store';
+import * as TravelActions from '../../actions/travel.actions';
+import * as fromRoot from '../../reducers/reducers';
+
 /**
  * Generated class for the TravelListPage page.
  *
@@ -19,12 +25,13 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: 'travel-list.html',
 })
 export class TravelListPage extends BasePage {
-  travels: TravelListItem[];
+  travels: Observable<TravelListItem[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public travelsService: TravelsService,
-              public authenticationService: AuthenticationService) {
+              public authenticationService: AuthenticationService, private store:Store<fromRoot.State>) {
       super(navCtrl, authenticationService);
+      this.travels = store.select(state => state.travels.results);
   }
 
   ionViewDidLoad() {
@@ -34,7 +41,7 @@ export class TravelListPage extends BasePage {
 
   public getTravels() {
     this.travelsService.getTravels().subscribe(
-      travels => {this.travels = travels}
+      travels => this.store.dispatch(new TravelActions.ListSuccess(travels))
       , error => {this.handleError(error)}
     );
   }
