@@ -4,8 +4,9 @@ import { BasePage } from '../base/base.page';
 import { TravelListItem } from '../../models/travellistitem';
 import { TravelsService } from '../../services/travels.service';
 import { TravelDetailPage } from '../../pages/travel-detail/travel-detail';
+import { NewTravelPage } from '../../pages/new-travel/new-travel';
 import { AuthenticationService } from '../../services/authentication.service';
-/** 
+/**
  * Generated class for the TravelListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
@@ -43,5 +44,8 @@ export class TravelListPage extends BasePage {
     this.navCtrl.push(TravelDetailPage, { id: item.id });
   }
 
+  public addTravel() {
+    this.navCtrl.push(NewTravelPage);
+  }
 
 }

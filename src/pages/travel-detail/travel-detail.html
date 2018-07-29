@@ -28,7 +28,7 @@
       <ion-col class="label">
         Name:
       </ion-col>
-      <ion-col col-8 class="description">
+      <ion-col col-9 class="description">
         {{travel.name}}
       </ion-col>
     </ion-row>
@@ -36,11 +36,11 @@
       <ion-col class="label">
         Description:
       </ion-col>
-      <ion-col col-8 class="description">
+      <ion-col col-9 class="description">
         {{travel.description}}
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="newSegment">
       <ion-col class="label">
         Startdate
       </ion-col>
@@ -56,6 +56,23 @@
         {{travel.endDate}}
       </ion-col>
 
+    </ion-row>
+    <ion-row class="newSegment">
+      <ion-col *ngIf="travel.destinations" class="label">
+        Destinations
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let destination of travel.destinations">
+      <ion-col>
+        <ion-card >
+          <ion-card-header>
+            <p class="label">{{destination.name}}</p>
+          </ion-card-header>
+          <ion-card-content>
+            <p class="description">Arrival: {{destination.arrival}}</p>  
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
 

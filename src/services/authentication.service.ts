@@ -7,7 +7,7 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError  } from 'rxjs/operators';
 import { User } from '../models/user';
 
-const basic_auth_header = "Basic ZWlja2U6Z2VoZWlt";
+
 interface LoginResponse {
   access_token: string;
   expires_in: number;
@@ -23,9 +23,11 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<User> {
-         return this.http.post<LoginResponse>('http://localhost:8081/auth/oauth/token', undefined, {
-          params: new HttpParams().set('grant_type','password').set('username', username).set('password',password),
-          headers: new HttpHeaders().set('Authorization', basic_auth_header )
+        const body = new HttpParams().set('grant_type','password').set('username', username).set('password',password).set('client_id','travelmanager-service');
+         return this.http.post<LoginResponse>('http://localhost:8280/auth/realms/Travelmanager/protocol/openid-connect/token', body.toString(), {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+          
         }).map((response: LoginResponse) => {
                 // login successful if there's a jwt token in the response
 

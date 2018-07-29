@@ -1,0 +1,37 @@
+<!--
+  Generated template for the NewTravelPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>New Travel</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <form [formGroup]="travelForm">
+      <ion-item>
+        <ion-label color="primary">Name</ion-label>
+        <ion-input type="text" formControlName="name" [class.invalid]="!travelForm.controls.name.valid && (travelForm.controls.name.dirty)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!travelForm.controls.name.valid && (travelForm.controls.name.dirty)">
+          <p>Please enter a valid name for the travel.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Start Date</ion-label>
+        <ion-datetime formControlName="startDate" displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY hh:mm"></ion-datetime>
+      </ion-item>
+      <button ion-button (click)="login()" [disabled]="!travelForm.valid" block>Login</button>
+    </form>
+  </div>
+</ion-content>

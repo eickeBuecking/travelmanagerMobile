@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { TravelListPage } from '../pages/travel-list/travel-list';
 import { LoginComponent } from '../pages/login/login.component';
 import { TravelDetailPage } from '../pages/travel-detail/travel-detail';
+import { NewTravelPage } from '../pages/new-travel/new-travel';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +27,8 @@ import { HttpClientModule} from '@angular/common/http';
     ListPage,
     TravelListPage,
     TravelDetailPage,
-    LoginComponent
+    LoginComponent,
+    NewTravelPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { HttpClientModule} from '@angular/common/http';
     ListPage,
     TravelListPage,
     TravelDetailPage,
-    LoginComponent
+    LoginComponent,
+    NewTravelPage
   ],
   providers: [
     StatusBar,

@@ -33,10 +33,7 @@ export class TravelDetailPage extends BasePage {
       error => {this.handleError(error)}
     );
   }
-  ionViewWillEnter() {
-
-  }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad TravelDetailPage');
   }
