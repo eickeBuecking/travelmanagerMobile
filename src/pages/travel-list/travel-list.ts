@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular/umd';
 import { BasePage } from '../base/base.page';
 import { TravelListItem } from '../../models/travellistitem';
 import { TravelsService } from '../../services/travels.service';
-import { TravelDetailPage } from '../../pages/travel-detail/travel-detail';
-import { NewTravelPage } from '../../pages/new-travel/new-travel';
+import { TravelDetailPage } from '../travel-detail/travel-detail';
+import { NewTravelPage } from '../new-travel/new-travel';
 import { AuthenticationService } from '../../services/authentication.service';
 import {Observable} from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-import * as TravelActions from '../../actions/travel.actions';
+import * as TravelActions from '../../actions/travel-actions';
 import * as fromRoot from '../../reducers/reducers';
 
 /**
@@ -27,11 +27,12 @@ import * as fromRoot from '../../reducers/reducers';
 export class TravelListPage extends BasePage {
   travels: Observable<TravelListItem[]>;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public travelsService: TravelsService,
-              public authenticationService: AuthenticationService, private store:Store<fromRoot.State>) {
-      super(navCtrl, authenticationService);
-      this.travels = store.select(state => state.travels.results);
+              public travelsService: TravelsService, public store: Store<fromRoot.State>,
+              public authenticationService: AuthenticationService) {
+                super(navCtrl, authenticationService);
+                this.travels = store.select(state => state.travels.results);
   }
 
   ionViewDidLoad() {

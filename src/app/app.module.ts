@@ -34,8 +34,8 @@ import { reducers } from '../reducers/reducers';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
     HttpClientModule,
+    IonicModule.forRoot(MyApp),
     StoreModule.forRoot(reducers)
   ],
   bootstrap: [IonicApp],

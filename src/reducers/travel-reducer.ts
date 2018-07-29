@@ -1,9 +1,9 @@
 import {TravelListItem} from '../models/travellistitem';
-import * as TravelActions from '../actions/travel.actions';
+import * as TravelActions from '../actions/travel-actions';
 
 export interface State {
     searchTerms : string;
-    results : TravelListItem[];
+    results : TravelListItem[]
 }
 
 const initialState: State = {
@@ -11,7 +11,7 @@ const initialState: State = {
     results: []
 }
 
-export function reducer (state = initialState, action: TravelActions.All) {
+export function reducer (state = initialState, action: TravelActions.All) : State {
     switch (action.type) {
         case TravelActions.LIST_TRAVELS: {
             return {
