@@ -18,7 +18,8 @@ import { TravelsService } from '../services/travels.service';
 import { HttpClientModule} from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../reducers/reducers';
+//import { reducers } from '../reducers/reducers';
+import {reducer} from '../reducers/travel-reducer';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { reducers } from '../reducers/reducers';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot({travels: reducer}),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

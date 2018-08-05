@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular/umd';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BasePage } from '../base/base.page';
 import { TravelListItem } from '../../models/travellistitem';
 import { TravelsService } from '../../services/travels.service';
@@ -32,7 +32,7 @@ export class TravelListPage extends BasePage {
               public travelsService: TravelsService, public store: Store<fromRoot.State>,
               public authenticationService: AuthenticationService) {
                 super(navCtrl, authenticationService);
-                this.travels = store.select(state => state.travels.results);
+                this.travels = this.store.select(state => state.travels.results);
   }
 
   ionViewDidLoad() {

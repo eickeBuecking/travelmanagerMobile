@@ -1,5 +1,8 @@
 import {TravelListItem} from '../models/travellistitem';
 import * as TravelActions from '../actions/travel-actions';
+//import { ActionReducer, Action } from '@ngrx/store';
+
+export type Action = TravelActions.All;
 
 export interface State {
     searchTerms : string;
@@ -11,7 +14,7 @@ const initialState: State = {
     results: []
 }
 
-export function reducer (state = initialState, action: TravelActions.All) : State {
+export function reducer (state:State = initialState, action: Action) : State {
     switch (action.type) {
         case TravelActions.LIST_TRAVELS: {
             return {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
