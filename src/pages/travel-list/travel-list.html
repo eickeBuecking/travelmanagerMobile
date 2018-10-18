@@ -29,7 +29,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+  <ion-grid *ngIf="!error">
+    <ion-row>
+      <ion-col>
+        <ion-item text-wrap no-lines>
+          Number of Travels: {{resultCount | async}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 
   <ion-list *ngIf="!error">

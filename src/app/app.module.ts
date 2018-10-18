@@ -18,8 +18,12 @@ import { TravelsService } from '../services/travels.service';
 import { HttpClientModule} from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
+
 //import { reducers } from '../reducers/reducers';
 import {reducer} from '../reducers/travel-reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TravelEffects } from '../reducers/travel-effects';   
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -38,7 +42,8 @@ import {reducer} from '../reducers/travel-reducer';
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     StoreModule.forRoot({travels: reducer}),
-    
+    EffectsModule.forRoot([TravelEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

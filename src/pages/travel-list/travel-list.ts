@@ -26,26 +26,23 @@ import * as fromRoot from '../../reducers/reducers';
 })
 export class TravelListPage extends BasePage {
   travels: Observable<TravelListItem[]>;
+  resultCount: Observable<number>;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public travelsService: TravelsService, public store: Store<fromRoot.State>,
               public authenticationService: AuthenticationService) {
                 super(navCtrl, authenticationService);
-                this.travels = this.store.select(state => state.travels.results);
+                this.travels = this.store.select(fromRoot.selectResults);
+                this.resultCount = this.store.select(fromRoot.selectResultCount);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TravelListPage');
-    this.getTravels();
+    this.store.dispatch(new TravelActions.List(""));
   }
 
-  public getTravels() {
-    this.travelsService.getTravels().subscribe(
-      travels => this.store.dispatch(new TravelActions.ListSuccess(travels))
-      , error => {this.handleError(error)}
-    );
-  }
+ 
 
   public itemSelected(item: TravelListItem) {
     console.log("Clicked on : " + item.id);
