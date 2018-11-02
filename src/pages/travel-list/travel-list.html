@@ -20,12 +20,10 @@
 
 
 <ion-content padding>
-  <ion-grid *ngIf="error">
+  <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-item class="error" text-wrap no-lines>
-          Error: {{error}}
-        </ion-item>
+        <error-display [error]="'Hallo'"></error-display>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -34,6 +32,7 @@
       <ion-col>
         <ion-item text-wrap no-lines>
           Number of Travels: {{resultCount | async}}
+          Error: {{errorText | async}}
         </ion-item>
       </ion-col>
     </ion-row>

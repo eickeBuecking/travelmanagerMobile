@@ -27,14 +27,15 @@ import * as fromRoot from '../../reducers/reducers';
 export class TravelListPage extends BasePage {
   travels: Observable<TravelListItem[]>;
   resultCount: Observable<number>;
-
+  errorText: Observable<string>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public travelsService: TravelsService, public store: Store<fromRoot.State>,
               public authenticationService: AuthenticationService) {
                 super(navCtrl, authenticationService);
                 this.travels = this.store.select(fromRoot.selectResults);
-                this.resultCount = this.store.select(fromRoot.selectResultCount);
+                this.resultCount = this.store.select(fromRoot.selectResultCount),
+                this.errorText = this.store.select(fromRoot.getTravelErrorText);
   }
 
   ionViewDidLoad() {

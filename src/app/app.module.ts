@@ -10,6 +10,8 @@ import { TravelListPage } from '../pages/travel-list/travel-list';
 import { LoginComponent } from '../pages/login/login.component';
 import { TravelDetailPage } from '../pages/travel-detail/travel-detail';
 import { NewTravelPage } from '../pages/new-travel/new-travel';
+import {ErrorDisplayComponent } from '../components/error-display/error-display';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +22,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 
 //import { reducers } from '../reducers/reducers';
-import {reducer} from '../reducers/travel-reducer';
+import * as TravelReducers from '../reducers/travel-reducer';
+
 import { EffectsModule } from '@ngrx/effects';
 import { TravelEffects } from '../reducers/travel-effects';   
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -35,13 +38,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TravelListPage,
     TravelDetailPage,
     LoginComponent,
-    NewTravelPage
+    NewTravelPage, ErrorDisplayComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot({travels: reducer}),
+    StoreModule.forRoot({travels: TravelReducers.reducer}),
+    
     EffectsModule.forRoot([TravelEffects]),
     StoreDevtoolsModule.instrument()
   ],
@@ -54,7 +58,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TravelListPage,
     TravelDetailPage,
     LoginComponent,
-    NewTravelPage
+    NewTravelPage,
+    ErrorDisplayComponent
   ],
   providers: [
     StatusBar,
