@@ -1,4 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { ToastController } from 'ionic-angular';
+import { Store } from '@ngrx/store';
+import * as ErrorActions from '../../actions/error-actions';
+import * as fromRoot from '../../reducers/reducers';
+import {Observable} from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { filter } from 'rxjs/operators';
 
 /**
  * Generated class for the ErrorDisplayComponent component.
@@ -11,12 +18,38 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'error-display.html'
 })
 export class ErrorDisplayComponent {
+  errorTextSubscription: Subscription;
+  errorText: Observable<string>;
+  constructor(private toastCtrl: ToastController, public store: Store<fromRoot.State>) {
+    console.log("DisplayComponent erzeugt!");
+    this.errorText = this.store.select(fromRoot.getErrorText);
+  }
+  
+  ngOnInit() {
+    let count: number = 0;
+    this.errorTextSubscription = this.errorText.subscribe(
+      (text) =>  {
+        let toast = this.toastCtrl.create({
+          message: text,
+          showCloseButton: true,
+          duration: 3000,
+          position: 'top'
+        });
+        console.log("Erzugtes Toast " + count);
+        toast.onDidDismiss(() => {
+          console.log("Dismissed");
+        })
 
-  @Input()
-  public error: string;
+        toast.present();
+    })
+  }
+  ngOnDestroy() {
+    this.errorTextSubscription.unsubscribe();
+    console.log("DisplayComponent destroyed");
 
-  constructor() {
-    console.log('Hello ErrorDisplayComponent Component: ' + this.error);
   }
 
+
+
+    
 }

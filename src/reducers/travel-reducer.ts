@@ -5,14 +5,12 @@ export type Action = TravelActions.All;
 
 export interface TravelState {
     searchTerms : string;
-    results : TravelListItem[], 
-    errorText: string
+    results : TravelListItem[]
 }
 
 const initialState: TravelState = {
     searchTerms: '',
-    results: [],
-    errorText: ''
+    results: []
 }
 
 export function reducer (state:TravelState = initialState, action: Action) : TravelState {
@@ -22,14 +20,6 @@ export function reducer (state:TravelState = initialState, action: Action) : Tra
                 ...state,
                 searchTerms: action.payload
             };
-        }
-        case TravelActions.EFFECT_ERROR: {
-            return {
-                ...state,
-                results: [],
-                errorText : action.payload
-            }
-
         }
 
         case TravelActions.LIST_TRAVELS_SUCCESS: {

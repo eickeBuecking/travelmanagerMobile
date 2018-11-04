@@ -6,6 +6,7 @@ import {Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 
 import * as TravelActions from '../actions/travel-actions';
+import * as ErrorActions from '../actions/error-actions';
 import {TravelsService} from '../services/travels.service';
 
 
@@ -26,7 +27,7 @@ export class TravelEffects {
         ofType(TravelActions.LIST_TRAVELS),
         switchMap(() => this.travelsService.getTravels().pipe(
             map(results => new TravelActions.ListSuccess(results)),
-            catchError(err => of(new TravelActions.EffectError(err)))
+            catchError(err => of(new ErrorActions.EffectError(err)))
         ))
     );   
 }

@@ -23,7 +23,7 @@ import { StoreModule } from '@ngrx/store';
 
 //import { reducers } from '../reducers/reducers';
 import * as TravelReducers from '../reducers/travel-reducer';
-
+import * as ErrorReducers from '../reducers/error-reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TravelEffects } from '../reducers/travel-effects';   
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -44,7 +44,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    StoreModule.forRoot({travels: TravelReducers.reducer}),
+    StoreModule.forRoot({travels: TravelReducers.reducer, errors: ErrorReducers.reducer}),
     
     EffectsModule.forRoot([TravelEffects]),
     StoreDevtoolsModule.instrument()

@@ -23,7 +23,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <error-display [error]="'Hallo'"></error-display>
+        <error-display></error-display>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -32,7 +32,6 @@
       <ion-col>
         <ion-item text-wrap no-lines>
           Number of Travels: {{resultCount | async}}
-          Error: {{errorText | async}}
         </ion-item>
       </ion-col>
     </ion-row>
