@@ -4,6 +4,12 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { BasePage } from '../base/base.page';
 import { TravelsService } from '../../services/travels.service';
 import { Travel } from '../../models/travel';
+import {Observable} from 'rxjs/Observable';
+
+import { Store } from '@ngrx/store';
+import * as TravelActions from '../../actions/travel-actions';
+import * as fromRoot from '../../reducers/reducers';
+import { switchMap } from 'rxjs/operators';
 
 /**
  * Generated class for the TravelDetailPage page.
@@ -19,19 +25,22 @@ import { Travel } from '../../models/travel';
 })
 export class TravelDetailPage extends BasePage {
   id: string;
-  travel: Travel;
+  travel: Observable<Travel>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public travelService: TravelsService,
-              public authenticationService: AuthenticationService ) {
+              public authenticationService: AuthenticationService,
+              public store: Store<fromRoot.State> ) {
     super(navCtrl, authenticationService);
     this.id = navParams.get("id");
     if (!this.id) {
       this.handleError("Error: Error happened, no ID available!");
     }
-    this.travelService.getTravel(this.id).subscribe(
-      travel => {this.travel = travel},
-      error => {this.handleError(error)}
-    );
+    this.travel = this.store.select(fromRoot.getTravel);
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new TravelActions.Detail(this.id));
   }
   
   ionViewDidLoad() {

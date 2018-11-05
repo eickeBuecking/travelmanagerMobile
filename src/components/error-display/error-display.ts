@@ -36,7 +36,7 @@ export class ErrorDisplayComponent {
             duration: 3000,
             position: 'top'
           });
-          console.log("Erzugtes Toast " + count);
+          console.log("Erzeugtes Toast " + count);
           toast.onDidDismiss(() => {
             this.store.dispatch(new ErrorActions.ResetEffectError());
             console.log("Dismissed");

@@ -8,6 +8,7 @@
 
   <ion-navbar>
     <ion-title>Your Travel</ion-title>
+    <error-display></error-display>
   </ion-navbar>
 
 </ion-header>
@@ -18,18 +19,19 @@
     <ion-row>
       <ion-col>
         <ion-item class="error" text-wrap no-lines>
+          
           Error: {{error}}
         </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="travel">
+  <ion-grid *ngIf="travel | async; let myTravel">
     <ion-row>
       <ion-col class="label">
         Name:
       </ion-col>
       <ion-col col-9 class="description">
-        {{travel.name}}
+        {{myTravel.name}}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -37,7 +39,7 @@
         Description:
       </ion-col>
       <ion-col col-9 class="description">
-        {{travel.description}}
+        {{myTravel.description}}
       </ion-col>
     </ion-row>
     <ion-row class="newSegment">
@@ -50,10 +52,10 @@
     </ion-row>
     <ion-row>
       <ion-col class="description">
-        {{travel.startDate}}
+        {{myTravel.startDate}}
       </ion-col>
       <ion-col class="description">
-        {{travel.endDate}}
+        {{myTravel.endDate}}
       </ion-col>
 
     </ion-row>
@@ -62,7 +64,7 @@
         Destinations
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let destination of travel.destinations">
+    <ion-row *ngFor="let destination of myTravel.destinations">
       <ion-col>
         <ion-card >
           <ion-card-header>
