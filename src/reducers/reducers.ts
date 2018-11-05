@@ -22,3 +22,7 @@ export function selectResults(state: State) {
 export function getErrorText(state: State) {
     return state.errors.errorText;
 }
+
+export function getTravel(state: State) {
+    return state.travels.travel;
+}

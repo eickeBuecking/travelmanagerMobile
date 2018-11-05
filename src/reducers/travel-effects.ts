@@ -30,4 +30,15 @@ export class TravelEffects {
             catchError(err => of(new ErrorActions.EffectError(err)))
         ))
     );   
+
+    @Effect()
+    loadTravel: Observable<Action> = this.actions$.pipe(
+        ofType(TravelActions.TRAVEL_DETAIL),
+        map((action: TravelActions.Detail) => action.payload),
+        switchMap((travelId : string) => this.travelsService.getTravel(travelId).pipe(
+            map(result => new TravelActions.DetailSuccess(result)),
+            catchError(err => of(new ErrorActions.EffectError(err)))
+        ))
+    );
 }
+

@@ -1,16 +1,23 @@
 import {TravelListItem} from '../models/travellistitem';
+import { Travel } from '../models/travel';
+
 import * as TravelActions from '../actions/travel-actions';
 
 export type Action = TravelActions.All;
 
 export interface TravelState {
     searchTerms : string;
-    results : TravelListItem[]
+    results : TravelListItem[];
+    travelId : string;
+    travel : Travel;
 }
 
 const initialState: TravelState = {
     searchTerms: '',
-    results: []
+    results: [],
+    travelId: '',
+    travel: null
+
 }
 
 export function reducer (state:TravelState = initialState, action: Action) : TravelState {
@@ -27,6 +34,20 @@ export function reducer (state:TravelState = initialState, action: Action) : Tra
                 ...state,
                 results: action.payload
             };
+        }
+
+        case TravelActions.TRAVEL_DETAIL: {
+            return {
+                ...state,
+                travelId: action.payload
+            }
+        }
+        
+        case TravelActions.TRAVEL_DETAIL_SUCCESS: {
+            return {
+                ...state,
+                travel: action.payload
+            }
         }
 
         default: {

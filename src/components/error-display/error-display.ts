@@ -27,20 +27,24 @@ export class ErrorDisplayComponent {
   
   ngOnInit() {
     let count: number = 0;
-    this.errorTextSubscription = this.errorText.subscribe(
+    this.errorTextSubscription = this.errorText.pipe(filter(text => text!= null && text.length>0)).subscribe(
       (text) =>  {
-        let toast = this.toastCtrl.create({
-          message: text,
-          showCloseButton: true,
-          duration: 3000,
-          position: 'top'
-        });
-        console.log("Erzugtes Toast " + count);
-        toast.onDidDismiss(() => {
-          console.log("Dismissed");
-        })
-
-        toast.present();
+        if (text && text.length > 0 ) {
+          let toast = this.toastCtrl.create({
+            message: text,
+            showCloseButton: true,
+            duration: 3000,
+            position: 'top'
+          });
+          console.log("Erzugtes Toast " + count);
+          toast.onDidDismiss(() => {
+            this.store.dispatch(new ErrorActions.ResetEffectError());
+            console.log("Dismissed");
+          })
+  
+          toast.present();
+        }
+        
     })
   }
   ngOnDestroy() {
