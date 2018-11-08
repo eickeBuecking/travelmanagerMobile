@@ -9,8 +9,21 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "test": "jest "
   },
+  "jest": {
+    "transform": {
+       "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+       "ts",
+       "tsx",
+       "js",
+       "json"
+    ]
+ },
   "dependencies": {
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
@@ -38,6 +51,10 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
+    "@types/jest": "^23.3.9",
+    "jest": "^23.6.0",
+    "reflect-metadata": "^0.1.12",
+    "ts-jest": "^23.10.4",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project",

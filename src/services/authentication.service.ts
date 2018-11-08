@@ -6,7 +6,8 @@ import 'rxjs/add/operator/catch';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError  } from 'rxjs/operators';
 import { User } from '../models/user';
-
+import * as jwt from 'jsonwebtoken';
+import { decode } from 'punycode';
 
 interface LoginResponse {
   access_token: string;
@@ -15,7 +16,7 @@ interface LoginResponse {
 @Injectable()
 export class AuthenticationService {
     public token: string;
-
+    private cert: string = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiN3J5uoDpfuVS9/INFCPGGaX+Gy17fH4p+4DSxxHuoPegDrCadubZRGMau0OaG5Q0rJblrvq0PTR06Ik1QCBaEJSI+/wsiZrGO8U8tmxl/Xtij0+HRXGpotDud23RxaS2MTTH4pX2w/IUaeTVE8v0haVIFpXE9fKbsFPEvTBJbrIvds+bvi7lrdOt0AplsgezFwEgVDiD0FLF86pWPjhJ0ZFd5g3/yyx3tUCkKUeMBd4/lb2fr1MJ+0edI4kUd3l/LMueliY++ahlFJ+/la1rtyuIDtlYHayNrCu81xQyYFdDFZy+u5jzSEeydKMRQQL0RISXQhC6MiRRsgZvr47DwIDAQAB\n-----END PUBLIC KEY-----";
     constructor(private http: HttpClient) {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -34,13 +35,20 @@ export class AuthenticationService {
                 if (response.access_token) {
                     // set token property
                     this.token = response.access_token;
+                    
                     let user = new User();
-                    user.username = "Eicke";
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    localStorage.setItem('token', this.token);
-                    // return true to indicate successful login
-                    return user;
+                    user.username = this.extractUserFromToken(this.token);
+                    if (username != null) {
+                      // store username and jwt token in local storage to keep user logged in between page refreshes
+                      localStorage.setItem('currentUser', JSON.stringify(user));
+                      localStorage.setItem('token', this.token);
+                      // return true to indicate successful login
+                      return user;  
+                    } else {
+                      throw new ErrorObservable(
+                        'Token was invalid.');
+                    }
+                    
                 } else {
                   throw new ErrorObservable(
                     'Token was not exposed as suspected.');
@@ -51,6 +59,20 @@ export class AuthenticationService {
 
 
     }
+
+    public extractUserFromToken(token:string) : string {
+      try {
+        let decoded = jwt.verify(token, this.cert);
+        console.log("Token: " + JSON.stringify(decoded));
+        return decoded["preferred_username"];
+      } catch (err) {
+        console.log("Token verification failed: " + err);
+        return null;
+      }
+      
+    }
+
+     
 
     private handleError(error: HttpErrorResponse) {
       console.error('Raw error: ', error);
@@ -78,9 +100,14 @@ export class AuthenticationService {
     }
 
     public loggedIn() : boolean {
+      let username:string;
       if (!this.token) {
         this.token = localStorage.getItem('token');
       }
-      return (this.token != undefined);
+      if (this.token != undefined) {
+         username = this.extractUserFromToken(this.token);
+      }
+      
+      return (username != undefined);
     }
 }
